@@ -1,30 +1,26 @@
 import { Blogcard } from "../components/Blogcard";
-import { Navbar } from "../components/Navbar";
+import { Appbar } from "../components/Appbar";
+import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
+    const {loading, blogs} = useBlogs();
+    
+    if(loading) {
+        return <div>
+            Loadings..
+        </div>
+    }
   return (
     <div className="">
-        <Navbar/>
+        <Appbar/>
         <div className="flex justify-center">
-      <div className=" justify-center max-w-xl">
-        <Blogcard
-          authorName={"Jaimil"}
-          title={"Welcome to my Blogging platform  "}
-          content={"Hope you guys enjoy the time writing some blogs in here , keep writing and reading , thank you "}
-          publishedDate={"2nd feb 2024"}
-        />
-        <Blogcard
-          authorName={"Jaimil"}
-          title={"Welcome to my Blogging platform  "}
-          content={"Hope you guys enjoy the time writing some blogs in here , keep writing and reading , thank you "}
-          publishedDate={"2nd feb 2024"}
-        />
-        <Blogcard
-          authorName={"Jaimil"}
-          title={"Welcome to my Blogging platform  "}
-          content={"Hope you guys enjoy the time writing some blogs in here , keep writing and reading , thank you "}
-          publishedDate={"2nd feb 2024"}
-        />
+        <div >
+        { blogs.map(post =>  <Blogcard
+          authorName={post.author.name || "Anonymous"}
+          title={post.title}
+          content={post.content}
+          publishedDate={"22 feb 2003"}
+        /> )}
       </div>
       </div>
     </div>

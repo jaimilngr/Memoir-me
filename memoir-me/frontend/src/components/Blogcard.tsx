@@ -5,9 +5,14 @@ interface BlogCardProps{
     publishedDate: string;
 }
 
+interface AvatarProps {
+    name: string;
+    size?: number; 
+  }
+
 export const Blogcard = ({authorName,title,content,publishedDate }: BlogCardProps) =>{
-    return <div className="p-4 border-b border-slate-200 pb-2">
-        <div className="flex">
+    return <div className="p-4 border-b border-slate-200 pb-2 w-screen max-w-screen-md ">
+        <div className="flex ">
             <Avatar name={authorName}/>
            <div className="font-extralight pl-2 text-sm justify-center flex-col">
            {authorName} </div> 
@@ -35,9 +40,9 @@ function Circle(){
     return <div className="h-1 w-1 rounded-full bg-slate-500"></div>
 }
 
-function Avatar( {name}: {name:string}){
-    return <div className="relative inline-flex items-center justify-center w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-    <span className="text-xs  text-gray-600 dark:text-gray-300">
+export function Avatar( {name , size = 6 } : AvatarProps){
+    return <div className={`relative inline-flex items-center justify-center w-${size} h-${size} overflow-hidden bg-gray-600 rounded-full "`}>
+    <span className="text-s  text-white">
             {name[0]}
     </span>
 </div>

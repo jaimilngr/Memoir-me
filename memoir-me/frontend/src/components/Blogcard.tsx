@@ -1,17 +1,16 @@
+import { Link } from "react-router-dom";
+
 interface BlogCardProps{
-    authorName: string;
+    id: string,
+    authorName: string,
     title: string,
     content: string,
     publishedDate: string;
 }
 
-interface AvatarProps {
-    name: string;
-    size?: number; 
-  }
+export const Blogcard = ({id,authorName,title,content,publishedDate }: BlogCardProps) =>{
 
-export const Blogcard = ({authorName,title,content,publishedDate }: BlogCardProps) =>{
-    return <div className="p-4 border-b border-slate-200 pb-2 w-screen max-w-screen-md ">
+    return <Link to={`/blog/${id}`}> <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer ">
         <div className="flex ">
             <Avatar name={authorName}/>
            <div className="font-extralight pl-2 text-sm justify-center flex-col">
@@ -34,17 +33,18 @@ export const Blogcard = ({authorName,title,content,publishedDate }: BlogCardProp
         </div>
     
     </div>
+    </Link>
 }
 
 function Circle(){
     return <div className="h-1 w-1 rounded-full bg-slate-500"></div>
 }
 
-export function Avatar( {name , size = 6 } : AvatarProps){
-    return <div className={`relative inline-flex items-center justify-center w-${size} h-${size} overflow-hidden bg-gray-600 rounded-full "`}>
-    <span className="text-s  text-white">
-            {name[0]}
+export function Avatar({ name, size = "small" }: { name: string, size?: "small" | "big" }) {
+    return <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}>
+    <span className={`${size === "small" ? "text-xs" : "text-xl"} font-extralight text-white `}>
+        {name[0]}
     </span>
 </div>
-    
+
 }

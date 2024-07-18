@@ -9,7 +9,7 @@ export const Appbar = () =>{
   const handleSignOut = useSignOut(); 
     return <div className="mx-5 justify-between"> 
    <Navbar fluid rounded>
-      <Navbar.Brand href="http://localhost:5173/blogs">
+      <Navbar.Brand href="/blogs">
         <span className="  text-xl font-extrabold font-serif pt-2 text-nowrap sm:text-3xl	" > Memoir me</span>
         <img src={logo} className="mr-3 h-14 sm:h-20" alt="Memoirme Logo" />
 

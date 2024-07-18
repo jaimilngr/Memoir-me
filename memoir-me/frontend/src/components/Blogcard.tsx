@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
@@ -17,7 +16,7 @@ const stripHtmlTags = (html: string) => {
 export const Blogcard = ({ id, authorName, title, content, publishedDate }: BlogCardProps) => {
   const sanitizedContent = DOMPurify.sanitize(content);
   const plainTextContent = stripHtmlTags(sanitizedContent);
-  const previewText = plainTextContent.length > 250 ? plainTextContent.slice(0, 250) + "..." : plainTextContent;
+
   
   const readTime = Math.ceil(plainTextContent.length / 100);
 

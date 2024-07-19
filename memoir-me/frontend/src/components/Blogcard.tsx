@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import { format } from 'date-fns';
 
 interface BlogCardProps {
   id: string;
@@ -16,6 +17,7 @@ const stripHtmlTags = (html: string) => {
 export const Blogcard = ({ id, authorName, title, content, published_date }: BlogCardProps) => {
   const sanitizedContent = DOMPurify.sanitize(content);
   const plainTextContent = stripHtmlTags(sanitizedContent);
+  const formattedDate = format(new Date(published_date), 'd MMMM yyyy');
 
   
   const readTime = Math.ceil(plainTextContent.length / 100);
@@ -32,8 +34,8 @@ export const Blogcard = ({ id, authorName, title, content, published_date }: Blo
             <Circle />
           </div>
           <div className="pl-2 font-thin text-slate-500 text-sm justify-center flex-col">
-            {published_date}
-          </div>
+          {formattedDate}
+                    </div>
         </div>
         <div className="text-xl font-bold pt-2">
           {title}

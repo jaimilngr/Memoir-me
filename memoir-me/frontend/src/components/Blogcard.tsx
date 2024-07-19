@@ -6,14 +6,14 @@ interface BlogCardProps {
   authorName: string;
   title: string;
   content: string;
-  publishedDate: string;
+  published_date: string;
 }
 
 const stripHtmlTags = (html: string) => {
   return html.replace(/<[^>]*>/g, '');
 };
 
-export const Blogcard = ({ id, authorName, title, content, publishedDate }: BlogCardProps) => {
+export const Blogcard = ({ id, authorName, title, content, published_date }: BlogCardProps) => {
   const sanitizedContent = DOMPurify.sanitize(content);
   const plainTextContent = stripHtmlTags(sanitizedContent);
 
@@ -32,7 +32,7 @@ export const Blogcard = ({ id, authorName, title, content, publishedDate }: Blog
             <Circle />
           </div>
           <div className="pl-2 font-thin text-slate-500 text-sm justify-center flex-col">
-            {publishedDate}
+            {published_date}
           </div>
         </div>
         <div className="text-xl font-bold pt-2">

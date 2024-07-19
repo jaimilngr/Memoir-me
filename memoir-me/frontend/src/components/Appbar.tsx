@@ -7,18 +7,23 @@ import { useSignOut  } from "./Signout";
 
 export const Appbar = () =>{
   const handleSignOut = useSignOut(); 
-    return <div className="mx-5 justify-between"> 
+    return <div className="mx-5 justify-between "> 
+    {/* <div className="w-48 md:w-auto"> */}
+
    <Navbar fluid rounded>
   <Link to={`/blogs`}>
       <Navbar.Brand>
         <span className="  text-xl font-extrabold font-serif pt-2 text-nowrap sm:text-3xl	" > Memoir me</span>
-        <img src={logo} className="mr-3 h-14 sm:h-20" alt="Memoirme Logo" />
+        <img src={logo} className="mr-3 h-10 sm:h-20" alt="Memoirme Logo" />
 
         </Navbar.Brand>
         </Link>
-        <div className="flex flex-row justify-center w-6 md:w-max z-10">
+        <div className="flex flex-row justify-center ml-6 md:w-max z-10">
         <Link to={`/blogs/publish`}>
-        <button type="button" className=" mr-4 text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 sm:shrink-0">Create</button>
+        <div className="pt-1 md:pt-0">
+        <button type="button" className=" mr-4 text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ml-2 leading-4	md:leading-5 ">Create</button>
+        </div>
+
         </Link>
 
       <div className="flex md:order-2 text-2xl w-10 " >
@@ -44,8 +49,7 @@ export const Appbar = () =>{
       </div>
     </Navbar>
     <hr className="h-px  bg-gray-200 border-0 dark:bg-gray-700"/>
-
-</div>
+    </div>
 }
 
 

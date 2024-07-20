@@ -8,7 +8,6 @@ import { useSignOut  } from "./Signout";
 export const Appbar = () =>{
   const handleSignOut = useSignOut(); 
     return <div className="mx-5 justify-between "> 
-    {/* <div className="w-48 md:w-auto"> */}
 
    <Navbar fluid rounded>
   <Link to={`/blogs`}>

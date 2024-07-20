@@ -2,9 +2,12 @@ import { Blogcard } from "../components/Blogcard";
 import { Appbar } from "../components/Appbar";
 import { useBlogs } from "../hooks";
 import { BlogSkeleton } from "../components/BlogSkeleton";
+import { PopUp } from "../components/PopUp";
 
 export const Blogs = () => {
-  const { loading, blogs } = useBlogs();
+  const { loading, blogs, error } = useBlogs();
+  //@ts-ignore
+  if (error) return <PopUp></PopUp>;
 
   if (loading) {
     return (

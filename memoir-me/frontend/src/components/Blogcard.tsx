@@ -18,17 +18,16 @@ export const Blogcard = ({ id, authorName, title, content, published_date }: Blo
   const sanitizedContent = DOMPurify.sanitize(content);
   const plainTextContent = stripHtmlTags(sanitizedContent);
   const formattedDate = format(new Date(published_date), 'd MMMM yyyy');
-
-  
+  const displayAuthorName = authorName || "Anonymous";
   const readTime = Math.ceil(plainTextContent.length / 100);
 
   return (
     <Link to={`/blog/${id}`}>
       <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
         <div className="flex">
-          <Avatar name={authorName} />
+          <Avatar name={displayAuthorName} />
           <div className="font-extralight pl-2 text-sm justify-center flex-col">
-            {authorName}
+            {displayAuthorName}
           </div>
           <div className="flex justify-center flex-col pl-2">
             <Circle />
@@ -58,11 +57,12 @@ export function Circle() {
   return <div className="h-1 w-1 rounded-full bg-slate-500"></div>;
 }
 
-export function Avatar({ name, size = "small" }: { name: string; size?: "small" | "big" }) {
+export function Avatar({ name, size = "small" }: { name?: string; size?: "small" | "big" }) {
+  const displayName = name || "Anonymous"; 
   return (
     <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}>
       <span className={`${size === "small" ? "text-xs" : "text-xl"} font-extralight text-white`}>
-        {name[0]}
+        {displayName[0]}
       </span>
     </div>
   );

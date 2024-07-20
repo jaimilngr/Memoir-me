@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Appbar } from './Appbar';
@@ -10,8 +10,16 @@ export const Publish = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState(''); 
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/blogs');
+    }
+  }, [navigate]);
 
   const handleSubmit = async () => {
+  
     try {
       const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
         title,

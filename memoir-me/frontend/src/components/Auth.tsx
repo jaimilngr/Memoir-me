@@ -23,17 +23,21 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
       const jwt = response.data.jwt;
       localStorage.setItem("token", jwt);
-      navigate("/blogs");
+
+      navigate("/blogs", { replace: true });;
     } catch (e) {
         alert("Error while signing up")
     }
   }
   return (
-    <div className="h-screen flex justify-center flex-col">
+    <div className="h-screen flex justify-center flex-col md:h-full">
       <div className="flex justify-center">
         <div>
           <div className="px-10">
-            <div className=" text-3xl font-extrabold ">Create an account</div>
+            <div className=" text-3xl font-extrabold ">{type === "signin"
+                ? "Welcome Back"
+                : "Create an account"}
+</div>
             <div className=" text-slate-500">
               {type === "signin"
                 ? "Dont have an account ?"

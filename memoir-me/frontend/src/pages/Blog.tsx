@@ -4,12 +4,17 @@ import { useParams } from "react-router-dom";
 import Lottie from "lottie-react";
 import load from "../assets/images/Loading.json";
 import { Appbar } from "../components/Appbar";
+import { PopUp } from "../components/PopUp";
+
 
 export const Blog = () => {
   const { id } = useParams();
-  const { loading, blog } = useBlog({
+  const { loading, blog ,error} = useBlog({
     id: id || "",
   });
+
+  if (error) return <PopUp></PopUp>;
+
   if (loading) {
     return (
       <div>

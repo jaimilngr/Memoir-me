@@ -4,9 +4,12 @@ import { Avatar } from "./Blogcard";
 import DOMPurify from 'dompurify';
 import { format } from 'date-fns';
 
+
 export const MainBlog = ({ blog }: { blog: Blog}) => {
   const sanitizedContent = DOMPurify.sanitize(blog.content);
   const formattedDate = format(new Date(blog.published_date), 'd MMMM yyyy');
+
+ 
 
   return (
     <div>

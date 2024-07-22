@@ -7,7 +7,7 @@ import { PopUp } from "../components/PopUp";
 export const Blogs = () => {
   const { loading, blogs, error } = useBlogs();
   //@ts-ignore
-  if (error) return <PopUp></PopUp>;
+  if (error) return <PopUp issue=""></PopUp>;
 
   if (loading) {
     return (

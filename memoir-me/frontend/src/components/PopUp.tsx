@@ -7,7 +7,7 @@ interface PopupProps{
   issue?:string,
   bar?:boolean
 }
-export function PopUp({issue,bar = true}: PopupProps) {
+export function PopUp({issue = "We understand your interest, but please first",bar = true}: PopupProps) {
   return (
     <>
       {bar && <Appbar />}

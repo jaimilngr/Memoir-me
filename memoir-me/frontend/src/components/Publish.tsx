@@ -21,7 +21,7 @@ export const Publish = () => {
   }, [navigate]);
 
 
-  if (error) return <PopUp issue={"We understand your interest, but please first"}></PopUp>;
+  if (error) return <PopUp></PopUp>;
 
   const handleSubmit = async () => {
   

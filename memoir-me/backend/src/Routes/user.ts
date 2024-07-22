@@ -35,10 +35,16 @@ userRouter.post("/signup", async (c) => {
           username: body.username,
           password: body.password,
         },
+        select:{
+          id:true,
+          name: true
+        }
       });
       const token = await sign({ id: user.id }, c.env.Jwt_Secret);
       return c.json({
         jwt: token,
+        name: user.name,
+        id: user.id
       });
     } catch (e) {
       c.status(403);
@@ -69,8 +75,7 @@ userRouter.post("/signup", async (c) => {
       },
       select:{
         id:true,
-        name: true
-      }
+        name: true,      }
     });
   
     if (!user) {
@@ -82,7 +87,8 @@ userRouter.post("/signup", async (c) => {
     const token = await sign({ id: user.id }, c.env.Jwt_Secret);
     return c.json({
       jwt: token,
-      name: user.name
+      name: user.name,
+      id: user.id
     });
   });
 

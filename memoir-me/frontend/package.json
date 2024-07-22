@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@jaimil/memoirme-common": "^1.0.1",
+    "@jaimil/memoirme-common": "^1.0.2",
     "@types/quill": "^2.0.14",
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",

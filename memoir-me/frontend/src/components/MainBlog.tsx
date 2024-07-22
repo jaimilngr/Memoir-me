@@ -3,7 +3,7 @@ import { Blog } from "../hooks";
 import { Avatar } from "./Blogcard";
 import DOMPurify from "dompurify";
 import { format } from "date-fns";
-import { Comment, CommentsSection, exampleComments } from "./Comments";
+import { CommentsSection } from "./Comments";
 
 export const MainBlog = ({ blog }: { blog: Blog }) => {
   const sanitizedContent = DOMPurify.sanitize(blog.content);
@@ -26,7 +26,7 @@ export const MainBlog = ({ blog }: { blog: Blog }) => {
               dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             ></div>
             <div className="mt-10">
-              <CommentsSection initialComments={exampleComments} />
+              <CommentsSection postId={blog.id}/>
             </div>
           </div>
           <div className="col-span-12 md:col-span-4 order-1 md:order-2 md:ml-5 break-words ">

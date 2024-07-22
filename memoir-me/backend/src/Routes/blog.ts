@@ -16,7 +16,7 @@ export const blogRouter = new Hono<{
 
 
 
-const authMiddleware = async (c: any, next: () => Promise<void>) => {
+export const authMiddleware = async (c: any, next: () => Promise<void>) => {
   const header = c.req.header("Authorization") || "";  
 
   try {
@@ -159,5 +159,6 @@ blogRouter.get("/bulk", async (c) => {
       
   });
 
-
+  
+  
   

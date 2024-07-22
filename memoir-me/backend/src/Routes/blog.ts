@@ -15,7 +15,7 @@ export const blogRouter = new Hono<{
 }>();
 
 
-blogRouter.use("/*", async (c, next) => {
+blogRouter.use("/blogs/publish", async (c, next) => {
     const header = c.req.header("Authorization") || "";  
 
     try{

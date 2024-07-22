@@ -3,10 +3,22 @@ import {  Dropdown, Navbar} from "flowbite-react";
 import {Avatar} from "../components/Blogcard"
 import { Link } from "react-router-dom";
 import { useSignOut  } from "./Signout";
+import { useState } from "react";
+import { PopUp } from "./PopUp";
 
 
 export const Appbar = () =>{
+  const [showPopup, setShowPopup] = useState(false);
+
+  const Name = localStorage.getItem('username');
   const handleSignOut = useSignOut(); 
+
+  const handleClick = () => {
+    if (Name == null) {
+      setShowPopup(true);
+    }
+  };
+
     return <div className="mx-5 justify-between "> 
 
    <Navbar fluid rounded>
@@ -18,12 +30,25 @@ export const Appbar = () =>{
         </Navbar.Brand>
         </Link>
         <div className="flex flex-row justify-center ml-6 md:w-max z-10">
-        <Link to={`/blogs/publish`}>
+        <Link to={ Name === null ? "#" : "/blogs/publish"}>
         <div className="pt-1 md:pt-0">
-        <button type="button" className=" mr-4 text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ml-2 leading-4	md:leading-5 ">Create</button>
+        <button type="button" onClick={handleClick} className=" mr-4 text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ml-2 leading-4	md:leading-5 ">Create</button>
         </div>
-
         </Link>
+
+        {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative bg-white p-6 rounded shadow w-full max-w-sm md:max-w-md lg:max-w-lg">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 pt-1"
+              onClick={() => setShowPopup(false)}
+            >
+              ❌
+            </button>
+            <PopUp issue="Please Sign in to post blogs" bar={false} />
+          </div>
+        </div>
+      )}
 
       <div className="flex md:order-2 text-2xl w-10 " >
      
@@ -32,7 +57,7 @@ export const Appbar = () =>{
           inline
           label={
           
-            <Avatar  name="J" size="big"/>
+            <Avatar  name={Name} size="big"/>
           }
         > 
         <div className="mx-5 bg-white ">

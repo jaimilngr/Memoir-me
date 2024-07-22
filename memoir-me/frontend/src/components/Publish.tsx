@@ -5,18 +5,23 @@ import { Appbar } from './Appbar';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { PopUp } from './PopUp';
 
 export const Publish = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState(''); 
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/blogs');
+      setError("Login to Publish an Blog ");
     }
   }, [navigate]);
+
+
+  if (error) return <PopUp issue={"We understand your interest, but please first"}></PopUp>;
 
   const handleSubmit = async () => {
   

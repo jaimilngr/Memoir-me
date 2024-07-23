@@ -3,7 +3,7 @@ import { Blog } from "../hooks";
 import { Avatar } from "./Blogcard";
 import DOMPurify from "dompurify";
 import { format } from "date-fns";
-import { CommentsSection } from "./Comments";
+import { CommentsSection } from "./CommentSection";
 
 export const MainBlog = ({ blog }: { blog: Blog }) => {
   const sanitizedContent = DOMPurify.sanitize(blog.content);

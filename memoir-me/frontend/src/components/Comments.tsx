@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Avatar } from './Blogcard';
+import { useState } from "react";
+import { Avatar } from "./Blogcard";
 
 interface CommentProps {
   id: string;
@@ -28,36 +28,43 @@ export function Comment({ comment, onReply }: CommentComponentProps) {
     setShowReplyForm(false);
   };
 
+  const handleReplyClick = () => {
+    setShowReplyForm((prev) => !prev);
+    setShowReplies(false); // Hide replies when the reply form is shown
+  };
+
   return (
     <div className="mb-4 p-4 border border-gray-300 rounded-lg">
       <div className="flex items-start">
-        <Avatar />
+        <Avatar name={comment.user.name}/>
         <div className="flex-1 ml-5">
-          <strong className="block text-lg font-semibold">{comment.user.name}</strong>
+          <strong className="block text-lg font-semibold">
+            {comment.user.name}
+          </strong>
           <p className="mt-1 text-gray-700">{comment.content}</p>
           <div className="mt-2">
             {comment.replies.length > 0 && (
               <button
-                onClick={() => setShowReplies(!showReplies)}
+                onClick={() => setShowReplies((prev) => !prev)}
                 className="text-blue-500 hover:underline mr-5"
               >
-                {showReplies ? 'Hide Replies' : 'Show Replies'}
+                {showReplies ? "Hide Replies" : "Show Replies"}
               </button>
             )}
-
-            {showReplies && (
-              <div className="ml-4 mt-2">
-                {comment.replies.map(reply => (
-                  <Comment key={reply.id} comment={reply} onReply={onReply} />
-                ))}
-              </div>
-            )}
             <button
-              onClick={() => setShowReplyForm(!showReplyForm)}
+              onClick={handleReplyClick}
               className="text-blue-500 hover:underline"
             >
               Reply
             </button>
+            {showReplies && (
+              <div className="ml-4 mt-2">
+                {comment.replies.map((reply) => (
+                  <Comment key={reply.id} comment={reply} onReply={onReply} />
+                ))}
+              </div>
+            )}
+
             {showReplyForm && (
               <div className="mt-2">
                 <textarea

@@ -65,42 +65,48 @@ commentRouter.post("/", authMiddleware, async (c: any) => {
     }
 });
 
-
-  commentRouter.get("/bulk/:postId", async (c: any) => {
+commentRouter.get("/bulk/:postId", async (c: any) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const { postId } = c.req.query();
+    const postId = c.req.param("postId");
 
-    const comments = await prisma.comment.findMany({
-        where: {
-            postId: postId || undefined, 
-        },
-        select: {
-            id: true,
-            content: true,
-            user: {
-                select: {
-                    name: true,
-                }
+    if (!postId) {
+        return c.json({ error: "Post ID is required" }, { status: 400 });
+    }
+
+    try {
+        const comments = await prisma.comment.findMany({
+            where: {
+                postId: postId,  
             },
-            parentId: true,
-            replies: {
-                select: {
-                    id: true,
-                    content: true,
-                    user: {
-                        select: {
-                            name: true,
+            select: {
+                id: true,
+                content: true,
+                user: {
+                    select: {
+                        name: true,
+                    }
+                },
+                parentId: true,
+                replies: {
+                    select: {
+                        id: true,
+                        content: true,
+                        user: {
+                            select: {
+                                name: true,
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
 
-    return c.json({
-        comments
-    });
+        return c.json({ comments });
+    } catch (error) {
+        console.error("Error fetching comments:", error);
+        return c.json({ error: "Internal Server Error" }, { status: 500 });
+    }
 });

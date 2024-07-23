@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Comment } from './Comments'; // Ensure the import path is correct
+import { Comment } from './Comments'; 
+import { PopUp } from './PopUp'; 
 import { BACKEND_URL } from '../config';
 
 interface CommentProps {
@@ -21,6 +22,8 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
   const [comments, setComments] = useState<CommentProps[]>([]);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   useEffect(() => {
     fetchComments();
@@ -62,6 +65,13 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
   };
 
   const handleReply = async (commentId: string, replyContent: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setPopupMessage('You must be logged in to post a reply.');
+      setShowPopup(true);
+      return;
+    }
+
     setLoading(true);
     try {
       const userId = localStorage.getItem("uid");
@@ -72,7 +82,7 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
         parentId: commentId
       },{
         headers: {
-          Authorization: localStorage.getItem("token") || "",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -88,8 +98,14 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
     }
   };
 
-
   const handlePostComment = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setPopupMessage('You must be logged in to post a comment.');
+      setShowPopup(true);
+      return;
+    }
+
     setLoading(true);
     try {
       const userId = localStorage.getItem("uid");
@@ -99,7 +115,7 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
         userId
       },{
         headers: {
-          Authorization: localStorage.getItem("token") || "",
+          Authorization: `Bearer ${token}`,
         },
       });
   
@@ -115,7 +131,6 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
       setLoading(false);
     }
   };
-  
 
   if (loading) {
     return (
@@ -129,6 +144,19 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
 
   return (
     <div className="w-full">
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white p-6 rounded shadow w-full max-w-sm md:max-w-md">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 pt-1"
+              onClick={() => setShowPopup(false)}
+            >
+              ❌
+            </button>
+            <PopUp issue={popupMessage} bar={false} />
+          </div>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mb-4">Comments Section</h2>
       <div>
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>

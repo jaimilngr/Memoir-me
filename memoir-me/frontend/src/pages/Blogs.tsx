@@ -33,7 +33,7 @@ export const Blogs = () => {
           <h1 className="text-4xl font-bold text-gray-800 mb-10 text-center md:text-left">
             Latest Blogs
           </h1>
-          {blogs.map((post, index) => (
+          {blogs.map((post) => (
             <div
               key={post.id}
               className="relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105 bg-white border border-gray-200 border-r-4 border-r-teal-500"

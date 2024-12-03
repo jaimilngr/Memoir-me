@@ -18,32 +18,30 @@ export const Appbar = () => {
   };
 
   return (
-    <div className="mx-5 justify-between">
+    <div className="px-4 sm:px-8 bg-white border-b shadow-md">
       <Navbar fluid rounded>
-        <Link to={`/blogs`}>
+        <Link to={`/`}>
           <Navbar.Brand>
-            <span className="text-xl font-extrabold font-serif pt-2 text-nowrap sm:text-3xl">Memoir me</span>
-            <img src={logo} className="mr-3 h-10 sm:h-20" alt="Memoir Logo" />
+            <img src={logo} className="h-10 sm:h-14" alt="Memoir Logo" />
+            <span className="text-xl font-extrabold font-serif text-gray-800 sm:text-2xl ml-2">Memoir Me</span>
           </Navbar.Brand>
         </Link>
-        <div className="flex flex-row justify-center ml-6 md:w-max">
+        <div className="flex items-center space-x-4 ml-auto">
           <Link to={Name === null ? "#" : "/blogs/publish"}>
-            <div className="pt-1 md:pt-0">
-              <button
-                type="button"
-                onClick={handleClick}
-                className="mr-4 text-white bg-green-700 hover:bg-green-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ml-2 leading-4 md:leading-5"
-              >
-                Create
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleClick}
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-green-600 hover:bg-green-700 rounded-full shadow-md transition duration-200"
+            >
+              Create
+            </button>
           </Link>
 
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-              <div className="relative bg-white p-6 rounded shadow w-full max-w-sm md:max-w-md">
+              <div className="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-sm md:max-w-md">
                 <button
-                  className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 pt-1"
+                  className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                   onClick={() => setShowPopup(false)}
                 >
                   ❌
@@ -53,35 +51,34 @@ export const Appbar = () => {
             </div>
           )}
 
-          <div className="flex md:order-2 text-2xl w-10">
-            <Dropdown
-              arrowIcon={false}
-              inline
-              label={<Avatar name={Name} size="big" />}
-              disabled={Name === null} 
-            >
-              {Name ? (
-                <div className="mx-5 bg-white">
-                  <Link to={`/blogs`}>
-                    <Dropdown.Item>Dashboard</Dropdown.Item>
-                  </Link>
-                  <Dropdown.Item>Settings</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
-                </div>
-              ) : (
-                <div className="mx-5 bg-white text-gray-500 cursor-not-allowed">
-                  <Dropdown.Item className="cursor-not-allowed">Dashboard</Dropdown.Item>
-                  <Dropdown.Item className="cursor-not-allowed">Settings</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item className="cursor-not-allowed">Sign out</Dropdown.Item>
-                </div>
-              )}
-            </Dropdown>
-          </div>
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={<Avatar name={Name} size="big" />}
+            disabled={Name === null}
+            className="relative"
+          >
+            {Name ? (
+              <div className="bg-white rounded-lg shadow-lg mt-2 w-48">
+                <Dropdown.Item className="hover:bg-gray-100 transition duration-200">Settings</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item
+                  className="hover:bg-red-100 text-red-600 transition duration-200"
+                  onClick={handleSignOut}
+                >
+                  Sign out
+                </Dropdown.Item>
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-lg mt-2 w-48 text-gray-400">
+                <Dropdown.Item className="cursor-not-allowed">Settings</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item className="cursor-not-allowed">Sign out</Dropdown.Item>
+              </div>
+            )}
+          </Dropdown>
         </div>
       </Navbar>
-      <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700" />
     </div>
   );
 };

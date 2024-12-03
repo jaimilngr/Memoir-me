@@ -19,33 +19,33 @@ export const Blogcard = ({ id, authorName, title, content, published_date }: Blo
   const plainTextContent = stripHtmlTags(sanitizedContent);
   const formattedDate = format(new Date(published_date), 'd MMMM yyyy');
   const displayAuthorName = authorName || "Anonymous";
-  const readTime = Math.ceil(plainTextContent.length / 100);
+  const readTime = Math.ceil(plainTextContent.length / 200);
 
   return (
-    <Link to={`/blog/${id}`}>
-      <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
-        <div className="flex">
+    <Link to={`/blog/${id}`} className="block">
+      <div className="p-4  rounded-lg shadow-sm w-full max-w-screen-md cursor-pointer overflow-hidden">
+        <div className="flex items-center mb-3">
           <Avatar name={displayAuthorName} />
-          <div className="font-extralight pl-2 text-sm justify-center flex-col">
-            {displayAuthorName}
+          <div className="flex flex-col pl-2">
+            <div className="font-extralight text-sm">{displayAuthorName}</div>
+            <div className="flex items-center space-x-1 text-slate-500 text-xs">
+              <Circle />
+              <span>{formattedDate}</span>
+            </div>
           </div>
-          <div className="flex justify-center flex-col pl-2">
-            <Circle />
-          </div>
-          <div className="pl-2 font-thin text-slate-500 text-sm justify-center flex-col">
-          {formattedDate}
-                    </div>
         </div>
-        <div className="text-xl font-bold pt-2">
+        <div className="text-xl font-bold mb-2">
           {title}
         </div>
-        <div className="text-md font-thin">
+        <div className="text-md font-thin mb-2">
           <div
             className="preview-content"
-            dangerouslySetInnerHTML={{ __html: sanitizedContent.length > 250 ? sanitizedContent.slice(0, 250) + "..." : sanitizedContent }}
+            dangerouslySetInnerHTML={{
+              __html: sanitizedContent.length > 250 ? sanitizedContent.slice(0, 250) + "..." : sanitizedContent
+            }}
           />
         </div>
-        <div className="text-slate-500 text-sm font-thin pt-4">
+        <div className="text-slate-500 text-sm font-thin pt-2">
           {`${readTime} minute(s) read`}
         </div>
       </div>
@@ -57,8 +57,8 @@ export function Circle() {
   return <div className="h-1 w-1 rounded-full bg-slate-500"></div>;
 }
 
-export function Avatar({ name, size = "small" }: { name?: string | null ; size?: "small" | "big" }) {
-  const displayName = name || "Anonymous"; 
+export function Avatar({ name, size = "small" }: { name?: string | null; size?: "small" | "big" }) {
+  const displayName = name || "Anonymous";
   return (
     <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}>
       <span className={`${size === "small" ? "text-xs" : "text-xl"} font-extralight text-white`}>
